@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-telemetry
+  labels:
+    app: hello-telemetry
+spec:
+  selector:
+    matchLabels:
+      app: hello-telemetry
+  template:
+    metadata:
+      labels:
+        app: hello-telemetry
+    spec:
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: pubsub-key
+      containers:
+      - name: hello-telemetry
+        image: hello-telemetry
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secrets/google/key.json
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 200m

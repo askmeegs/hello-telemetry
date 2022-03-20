@@ -1,0 +1,4 @@
+*env_setup.sh
+*.sh
+*key.json
+hello-telemetry

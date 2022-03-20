@@ -1,0 +1,13 @@
+# https://github.com/GoogleContainerTools/skaffold/blob/main/examples/ko/skaffold.yaml
+# https://skaffold.dev/docs/pipeline-stages/builders/ko/
+apiVersion: skaffold/v2beta28
+kind: Config
+build:
+  artifacts:
+  - image: hello-telemetry
+    ko: {}
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes-manifests/deployment.yaml
+    - kubernetes-manifests/service.yaml
