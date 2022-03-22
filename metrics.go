@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+	"os"
+	"time"
+)
+
 // Enum for ENV_PLATFORM
 type Platform string
 
@@ -12,7 +18,7 @@ const (
 
 type MetricsPayload struct {
 	Id          string `json:"id"`
-	Timestamp   string `json:"timestamp"`
+	Timestamp   int64  `json:"timestamp"` //UNIX timestamp
 	IsStartup   bool   `json:"is_startup"`
 	AppName     string `json:"app_name"`
 	AppVersion  string `json:"app_version"`
@@ -20,10 +26,36 @@ type MetricsPayload struct {
 }
 
 func GeneratePayload() (MetricsPayload, error) {
+	// Generate unix timestamp - avoid timezones, daylight savings, etc.
+	ts := time.Now().Unix()
+	fmt.Printf("⏰ TIMESTAMP is: %d\n", ts)
+
+	id := ""
+	envPlatform := ""
+
+	// Hardcode / use Const
+	appName := "HELLO_TELEMETRY"
+
+	appVersion := os.Getenv("APP_VERSION")
+
 	// TODO
-	return MetricsPayload{}, nil
+	return MetricsPayload{
+		Id:          id,
+		Timestamp:   ts,
+		IsStartup:   true,
+		AppName:     appName,
+		AppVersion:  appVersion,
+		EnvPlatform: envPlatform,
+	}, nil
 }
 
+// Helper for GeneratePayload()
+func GenerateDemoId() string {
+	// TODO
+	return ""
+}
+
+// Helper for GeneratePayload()
 func GetEnvPlatform() Platform {
 	// TODO
 	return Unknown
