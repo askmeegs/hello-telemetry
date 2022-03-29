@@ -29,7 +29,7 @@ func main() {
 	}
 
 	// Run periodic call-home ping in the background
-	go PeriodicPing(Payload)
+	// go PeriodicPing(Payload)
 
 	// Register handlers
 	mux := http.NewServeMux()

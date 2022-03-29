@@ -5,7 +5,6 @@ kind: Config
 build:
   artifacts:
   - image: hello-telemetry
-    ko: {}
 deploy:
   kubectl:
     manifests:
